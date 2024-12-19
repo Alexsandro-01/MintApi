@@ -1,15 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "XOULlzGCrK8W2XUNC2VLfCkJsah6bzwwhJiTsQJg2Ka+Rz2d7PENlFEU4zazb4wtwxzj4gmVhVBvZITYHwuNEA==",
-  "success": false,
+  "dgSpecHash": "mMMPheBnaNUmJ8nv9LLgh9UKtRaEeWv8m2+/Wgr9Z1+o9oUa8AEXWFCKpQ6fBw5DphZd5tDB9f9dDntGoMQlGA==",
+  "success": true,
   "projectFilePath": "/home/alexsandro/documentos/projetos/MintApi/Mint/Mint.csproj",
   "expectedPackageFiles": [
     "/home/alexsandro/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
-    "/home/alexsandro/.nuget/packages/microsoft.entityframeworkcore/7.0.4/microsoft.entityframeworkcore.7.0.4.nupkg.sha512",
+    "/home/alexsandro/.nuget/packages/microsoft.entityframeworkcore/7.0.5/microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
     "/home/alexsandro/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.5/microsoft.entityframeworkcore.abstractions.7.0.5.nupkg.sha512",
-    "/home/alexsandro/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.4/microsoft.entityframeworkcore.analyzers.7.0.4.nupkg.sha512",
+    "/home/alexsandro/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.5/microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",
     "/home/alexsandro/.nuget/packages/microsoft.entityframeworkcore.design/7.0.4/microsoft.entityframeworkcore.design.7.0.4.nupkg.sha512",
     "/home/alexsandro/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.5/microsoft.entityframeworkcore.relational.7.0.5.nupkg.sha512",
+    "/home/alexsandro/.nuget/packages/microsoft.entityframeworkcore.tools/9.0.0/microsoft.entityframeworkcore.tools.9.0.0.nupkg.sha512",
     "/home/alexsandro/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/home/alexsandro/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "/home/alexsandro/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
@@ -34,15 +35,5 @@
     "/home/alexsandro/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
     "/home/alexsandro/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Detected package downgrade: Microsoft.EntityFrameworkCore from 7.0.5 to 7.0.4. Reference the package directly from the project to select a different version. \n Mint -> Npgsql.EntityFrameworkCore.PostgreSQL 7.0.4 -> Microsoft.EntityFrameworkCore (>= 7.0.5 && < 8.0.0) \n Mint -> Microsoft.EntityFrameworkCore (>= 7.0.4)",
-      "libraryId": "Microsoft.EntityFrameworkCore",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }
