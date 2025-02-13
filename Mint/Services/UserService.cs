@@ -1,3 +1,4 @@
+using Mint.Constants;
 using Mint.Dto;
 using Mint.Models;
 using Mint.Repositories;
@@ -18,16 +19,27 @@ public class UserService : IUserService
     throw new NotImplementedException();
   }
 
-  public UserDto CreateUser(UserDtoInsert user)
+  public UserDtoResponse CreateUser(UserDtoInsert user)
   {
-    User doUserExistis = _userRepository.GetUserByEmail(user.Email);
-    if (doUserExistis != null)
+    User doUserExists = _userRepository.GetUserByEmail(user.Email);
+
+    if (doUserExists != null)
     {
-      throw new ArgumentException("User already exists");
+      return new UserDtoResponse
+      {
+        Success = false,
+        Message = ErrorMessages.UserAlreadyExists
+      };
     }
+
     UserDto newUser = _userRepository.AddUser(user);
 
-    return newUser;
+    return new UserDtoResponse
+    {
+      Success = true,
+      Message = SuccesMessages.UserCreated,
+      User = newUser
+    };
   }
 
   public void DeleteUser(int id)
