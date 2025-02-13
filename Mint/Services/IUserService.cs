@@ -6,7 +6,7 @@ namespace Mint.Services
   public interface IUserService
   {
     User Authenticate(string email, string password);
-    UserDto CreateUser(UserDtoInsert user);
+    UserDtoResponse CreateUser(UserDtoInsert user);
     User GetUserById(int id);
     User GetUserByEmail(string email);
     void UpdateUser(User user);
