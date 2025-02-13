@@ -1,5 +1,6 @@
 using Mint.Constants;
 using Mint.Dto;
+using Mint.Helpers;
 using Mint.Models;
 using Mint.Repositories;
 
@@ -9,9 +10,11 @@ public class UserService : IUserService
 {
 
   private readonly IUserRepository _userRepository;
-  public UserService(IUserRepository userRepository)
+  private readonly IPasswordHelper _passwordHelper;
+  public UserService(IUserRepository userRepository, IPasswordHelper passwordHelper)
   {
     _userRepository = userRepository;
+    _passwordHelper = passwordHelper;
   }
 
   public User Authenticate(string email, string password)
@@ -31,6 +34,18 @@ public class UserService : IUserService
         Message = ErrorMessages.UserAlreadyExists
       };
     }
+
+    user.Password = _passwordHelper.HashPassword(
+      new User
+      {
+        Name = user.Name,
+        Email = user.Email,
+        Password = user.Password,
+        Active = true,
+        CreatedAt = DateTime.Now
+      },
+      user.Password
+    );
 
     UserDto newUser = _userRepository.AddUser(user);
 
