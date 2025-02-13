@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mint.Models;
 using Mint.Services;
 using Mint.Dto;
+using Mint.Constants;
 
 namespace Mint.Controllers
 {
@@ -33,12 +34,29 @@ namespace Mint.Controllers
     {
       try
       {
-        UserDto newUser = _userService.CreateUser(user);
-        return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
-      }
-      catch(System.ArgumentException ex)
-      {
-        return Conflict(ex.Message);
+        List<string> validationErrors = user.Validate();
+        if (validationErrors.Any())
+        {
+          var response = new UserDtoResponse
+          {
+            Success = false,
+            Message = "Validation Error(s): " + string.Join("; ", validationErrors)
+          };
+          
+          return BadRequest(response);
+        }
+
+        UserDtoResponse newUserResponse = _userService.CreateUser(user);
+
+        if (!newUserResponse.Success && newUserResponse.Message == ErrorMessages.UserAlreadyExists)
+        {
+          return Conflict(newUserResponse);
+        }
+
+        return CreatedAtAction(
+          nameof(GetUserById),
+          new { id = newUserResponse.User.Id }, newUserResponse.User
+        );
       }
       catch (System.Exception ex)
       {
