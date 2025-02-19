@@ -7,8 +7,8 @@ namespace Mint.Services
   {
     User Authenticate(string email, string password);
     UserDtoResponse CreateUser(UserDtoInsert user);
-    User GetUserById(int id);
-    User GetUserByEmail(string email);
+    User? GetUserById(int id);
+    User? GetUserByEmail(string email);
     void UpdateUser(User user);
     void DeleteUser(int id);
   }

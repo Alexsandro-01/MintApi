@@ -65,20 +65,14 @@ public class UserService : IUserService
   public User GetUserByEmail(string email)
   {
     var user = _userRepository.GetUserByEmail(email);
-    if (user == null)
-    {
-      throw new KeyNotFoundException("User not found");
-    }
+
     return user;
   }
 
-  public User GetUserById(int id)
+  public User? GetUserById(int id)
   {
     var user = _userRepository.GetUserById(id);
-    if (user == null)
-    {
-      throw new KeyNotFoundException("User not found");
-    }
+
     return user;
   }
 

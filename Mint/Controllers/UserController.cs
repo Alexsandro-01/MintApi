@@ -19,14 +19,35 @@ namespace Mint.Controllers
     }
 
     [HttpGet("{id}")]
-    public ActionResult<User> GetUserById(int id)
+    public ActionResult<UserDtoResponse> GetUserById(int id)
     {
       var user = _userService.GetUserById(id);
       if (user == null)
       {
-        return NotFound();
+        return NotFound(
+          new UserDtoResponse
+          {
+            Success = false,
+            Message = ErrorMessages.UserNotFound
+          }
+        );
       }
-      return Ok(user);
+
+      return Ok(
+        new UserDtoResponse
+        {
+          Success = true,
+          Message = SuccesMessages.UserFound,
+          User = new UserDto
+          {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email,
+            Active = user.Active,
+            CreatedAt = user.CreatedAt
+          }
+        }
+      );
     }
 
     [HttpPost]
