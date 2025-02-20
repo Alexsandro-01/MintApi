@@ -7,5 +7,7 @@ namespace Mint.Constants
         public const string PasswordLength = "Password must have at least 6 characters";
         public const string NameLength = "Name must have at least 3 characters";
         public const string InvalidEmail = "Invalid email address";
+
+        public const string InvalidEmailOrPassword = "Invalid email or password";
     }
 }
