@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Mint.Constants;
 using Mint.Dto;
 using Mint.Helpers;
@@ -17,9 +18,45 @@ public class UserService : IUserService
     _passwordHelper = passwordHelper;
   }
 
-  public User Authenticate(string email, string password)
+  public UserDtoResponse Authenticate(string email, string password)
   {
-    throw new NotImplementedException();
+    var user = _userRepository.GetUserByEmail(email);
+
+    if (user == null)
+    {
+      return new UserDtoResponse
+      {
+        Success = false,
+        Message = ErrorMessages.UserNotFound
+      };
+    }
+
+    var results = _passwordHelper.VerifyHashedPassword(user, user.Password, password);
+
+    if (results == PasswordVerificationResult.Success)
+    {
+      return new UserDtoResponse
+      {
+        Success = true,
+        Message = SuccesMessages.UserFound,
+        User = new UserDto
+        {
+          Id = user.Id,
+          Name = user.Name,
+          Email = user.Email,
+          Active = user.Active,
+          CreatedAt = user.CreatedAt
+        }
+      };
+    }
+    else
+    {
+      return new UserDtoResponse
+      {
+        Success = false,
+        Message = ErrorMessages.InvalidEmailOrPassword
+      };
+    }
   }
 
   public UserDtoResponse CreateUser(UserDtoInsert user)
