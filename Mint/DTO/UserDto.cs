@@ -41,6 +41,14 @@ namespace Mint.Dto
     }
   }
 
+  
+  public class UserDtoResponse
+  {
+    public bool Success { get; set; }
+    public string Message { get; set; }
+    public UserDto? User { get; set; }
+  }
+
   public class LoginDto
   {
     public string Email { get; set; }
@@ -64,10 +72,12 @@ namespace Mint.Dto
     }
   }
 
-  public class UserDtoResponse
+  public class LoginResponseDto
   {
     public bool Success { get; set; }
     public string Message { get; set; }
-    public UserDto? User { get; set; }
+    public string? Token { get; set; }
   }
+
+
 }
