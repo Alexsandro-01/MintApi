@@ -12,10 +12,41 @@ namespace Mint.Controllers
   public class UserController : ControllerBase
   {
     private readonly IUserService _userService;
+    private readonly TokenGenerator _tokenGenerator;
 
     public UserController(IUserService userService)
     {
       _userService = userService;
+      _tokenGenerator = new TokenGenerator();
+    }
+
+    [HttpPost("login")]
+    public ActionResult<LoginResponseDto> Authenticate(LoginDto user)
+    {
+      UserDtoResponse existingUser = _userService.Authenticate(user.Email, user.Password);
+
+      if (!existingUser.Success)
+      {
+        return Unauthorized(existingUser);
+      }
+
+      string token = _tokenGenerator.Generate(new User
+      {
+        Name = existingUser.User.Name,
+        Email = existingUser.User.Email,
+        Id = existingUser.User.Id,
+        CreatedAt = existingUser.User.CreatedAt,
+        Active = existingUser.User.Active
+      });
+
+      return Ok(
+        new LoginResponseDto
+        {
+          Success = true,
+          Message = SuccesMessages.TokenGenerated,
+          Token = token
+        }
+      );
     }
 
     [HttpGet("{id}")]
