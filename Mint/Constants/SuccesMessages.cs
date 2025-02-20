@@ -6,5 +6,6 @@ namespace Mint.Constants
         public const string UserFound = "User found successfully";
         public const string UserUpdated = "User updated successfully";
         public const string UserDeleted = "User deleted successfully";
+        public const string TokenGenerated = "Token generated successfully";
     }
 }
