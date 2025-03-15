@@ -34,7 +34,7 @@ public class TokenGenerator
 
     claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
     claimsIdentity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
-    claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, "user"));
+    claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, "User"));
 
     return claimsIdentity;
   }

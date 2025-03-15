@@ -16,7 +16,8 @@ namespace Mint.Repositories
 
     public User GetUserByEmail(string Email)
     {
-      return _context.Users.FirstOrDefault(u => u.Email == Email);
+      var user = _context.Users.FirstOrDefault(u => u.Email == Email);
+      return user;
     }
 
     public User GetUserById(int id)
