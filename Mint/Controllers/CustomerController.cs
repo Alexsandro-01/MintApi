@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mint.Constants;
 using Mint.Services;
 
 namespace Mint.Controllers;
@@ -21,7 +22,7 @@ public class CustomerController : ControllerBase
     _userService = userService;
   }
 
-  [HttpGet("/customers")]
+  [HttpGet]
   public ActionResult<IEnumerable<CustomerDto>> GetAllCustomersByUser()
   {
     var token = HttpContext.User.Identity as ClaimsIdentity;
@@ -30,9 +31,16 @@ public class CustomerController : ControllerBase
     var user = _userService.GetUserByEmail(email);
     int userId = user.Id;
 
-    IEnumerable<CustomerDto> customers = _customerService.GetAllCustomersByUser(userId);
+    CustomerDto[] customers = _customerService.GetAllCustomersByUser(userId).ToArray();
     
-    return Ok(customers);
+    return Ok(
+      new CustomerDtoResponse
+      {
+        Success = true,
+        Message = SuccesMessages.CustomerFound,
+        Customer = customers
+      } 
+    );
   }
 
   // [HttpGet("{userId}/customers/{customerId}")]

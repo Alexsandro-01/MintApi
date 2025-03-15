@@ -1,15 +1,17 @@
 using Mint.Constants;
 
-public class CustomerDto
+namespace Mint.Dto;
+
+public class SupplierDto
 {
-  public int CustomerId { get; set; }
+  public int SupplierId { get; set; }
   public string Name { get; set; }
   public DateTime Created_at { get; set; }
 }
 
-public class CustomerDtoInsert
+public class SupplierDtoInsert
 {
-  public int? CustomerId { get; set; }
+  public int? SupplierId { get; set; }
   public string Name { get; set; }
 
   public List<string> Validate()
@@ -25,9 +27,9 @@ public class CustomerDtoInsert
   }
 }
 
-public class CustomerDtoResponse
+public class SupplierDtoResponse
 {
   public bool Success { get; set; }
   public string Message { get; set; }
-  public CustomerDto[]? Customer { get; set; }
+  public SupplierDto[]? Supplier { get; set; }
 }
