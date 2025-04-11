@@ -9,5 +9,12 @@ namespace Mint.Constants
         public const string InvalidEmail = "Invalid email address";
 
         public const string InvalidEmailOrPassword = "Invalid email or password";
+
+        // Unity
+        public const string InvalidUnityNameLength = "Unity name must have at least 2 characters";
+
+        // Product
+        public const string InvalidProductNameLength = "Product name must have at least 3 characters";
+        public const string InvalidProductCodeLength = "Product code must have at least 3 characters";
     }
 }
