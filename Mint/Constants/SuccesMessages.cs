@@ -21,6 +21,7 @@ namespace Mint.Constants
         public const string SupplierDeleted = "Supplier deleted successfully";
 
         // Unit
-        public const string unitFound = "Unit found successfuly";
+        public const string UnitFound = "Unit found successfuly";
+        public const string UnitCreated = "Unit created successfully";
     }
 }
