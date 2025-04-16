@@ -30,9 +30,16 @@ public class UnitController : ControllerBase
   {
     var user = GetUser(HttpContext);
 
-    Unit newUnit = _unitService.AddUnit(user.Id, unit);
+    UnityDto newUnit = _unitService.AddUnit(user.Id, unit);
 
-    return Created(user.Email, newUnit);
+    UnitDtoResponse unityDtoResponse = new UnitDtoResponse
+    {
+      Success = true,
+      Message = SuccesMessages.UnitCreated,
+      Unit = newUnit,
+    };
+
+    return Created(user.Email, unityDtoResponse);
   }
 
   [HttpGet]
@@ -43,11 +50,11 @@ public class UnitController : ControllerBase
     UnityDto[] units = _unitService.GetAllUnitiesByUser(user.Id);
 
     return Ok(
-      new UnityDtoResponse
+      new UnitiesDtoResponse
       {
         Success = true,
-        Message = SuccesMessages.unitFound,
-        Unity = units
+        Message = SuccesMessages.UnitFound,
+        Unities = units
       }
     );
   }

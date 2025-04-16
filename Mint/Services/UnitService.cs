@@ -15,7 +15,7 @@ namespace Mint.Services
       _unitRepository = (UnitRepository)unitRepository;
     }
 
-    public Unit AddUnit(int userId, UnityDtoInsert unity)
+    public UnityDto AddUnit(int userId, UnityDtoInsert unity)
     {
       Unit unit = new Unit()
       {
@@ -26,8 +26,15 @@ namespace Mint.Services
       };
 
       Unit response = _unitRepository.AddUnit(unit);
+
+      UnityDto unityDto = new UnityDto
+      {
+        UnityId = unit.Id,
+        Description = unit.Description,
+        Name = unit.Name
+      };
       
-      return response;
+      return unityDto;
     }
 
     public UnityDto[] GetAllUnitiesByUser(int userId)

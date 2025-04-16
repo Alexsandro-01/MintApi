@@ -5,5 +5,5 @@ public interface IUnitService
 {
     UnityDto[] GetAllUnitiesByUser(int userId);
     Unit GetUnitByUserId(int userId, int unitId);
-    Unit AddUnit(int userId, UnityDtoInsert unity);
+    UnityDto AddUnit(int userId, UnityDtoInsert unity);
 }
