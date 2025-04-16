@@ -6,13 +6,14 @@ public class UnityDto
 {
   public int UnityId { get; set; }
   public string Name { get; set; }
-  public DateTime Created_at { get; set; }
+  public string? Description {get; set;}
 }
 
 public class UnityDtoInsert
 {
   public int? UnityId { get; set; }
   public string Name { get; set; }
+  public string? Description { get; set; }
 
   public List<string> Validate()
   {
