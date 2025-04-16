@@ -28,10 +28,17 @@ public class UnityDtoInsert
   }
 }
 
-public class UnityDtoResponse
+public class UnitiesDtoResponse
 {
   public bool Success { get; set; }
   public string Message { get; set; }
-  public UnityDto[]? Unity { get; set; }
+  public UnityDto[]? Unities { get; set; }
+}
+
+public class UnitDtoResponse
+{
+  public bool Success {get; set;}
+  public string Message {get; set;}
+  public UnityDto? Unit {get; set;}
 }
 
