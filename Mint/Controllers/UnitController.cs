@@ -28,9 +28,13 @@ public class UnitController : ControllerBase
   [HttpPost]
   public ActionResult AddUnit([FromBody] UnityDtoInsert unit)
   {
-    var user = GetUser(HttpContext);
+    var token = HttpContext.User.Identity as ClaimsIdentity;
+    var email = token.FindFirst(ClaimTypes.Email)?.Value;
 
-    UnityDto newUnit = _unitService.AddUnit(user.Id, unit);
+    var user = _userService.GetUserByEmail(email);
+    int userId = user.Id;
+
+    UnityDto newUnit = _unitService.AddUnit(userId, unit);
 
     UnitDtoResponse unityDtoResponse = new UnitDtoResponse
     {
@@ -45,9 +49,13 @@ public class UnitController : ControllerBase
   [HttpGet]
   public ActionResult<IEnumerable<Unit>> GetUnitsByUserId()
   {
-    var user = GetUser(HttpContext);
+    var token = HttpContext.User.Identity as ClaimsIdentity;
+    var email = token.FindFirst(ClaimTypes.Email)?.Value;
 
-    UnityDto[] units = _unitService.GetAllUnitiesByUser(user.Id);
+    var user = _userService.GetUserByEmail(email);
+    int userId = user.Id;
+
+    UnityDto[] units = _unitService.GetAllUnitiesByUser(userId);
 
     return Ok(
       new UnitiesDtoResponse
@@ -59,13 +67,5 @@ public class UnitController : ControllerBase
     );
   }
 
-  public User GetUser(HttpContext httpContext)
-  {
-    var toekn = httpContext.User.Identity as ClaimsIdentity;
-    var email = toekn?.FindFirst(ClaimTypes.Email)?.Value;
-
-    var user = _userService.GetUserByEmail(email);
-    return user;
-  }
 
 }
