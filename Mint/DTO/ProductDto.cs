@@ -29,9 +29,16 @@ public class ProductDtoInsert
   }
 }
 
-public class ProductDtoResponse
+public class ProductsDtoResponse
 {
   public bool Success { get; set; }
   public string Message { get; set; }
   public ProductDto[]? Product { get; set; }
+}
+
+public class ProductDtoResponse
+{
+  public bool Success { get; set; }
+  public string Message { get; set; }
+  public ProductDto? Product { get; set; }
 }
