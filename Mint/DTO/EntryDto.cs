@@ -44,10 +44,10 @@ public class EntryDtoInsert
     return errors;
   }
 
-  public class EntryDtoResponse
-  {
-    public bool Success { get; set; }
-    public string Message { get; set; }
-    public EntryDto[]? Entry { get; set; }
-  }
+}
+public class EntryDtoResponse
+{
+  public bool Success { get; set; }
+  public string Message { get; set; }
+  public EntryDto[]? Entry { get; set; }
 }
