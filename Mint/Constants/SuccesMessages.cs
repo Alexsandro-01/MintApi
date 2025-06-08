@@ -28,5 +28,10 @@ namespace Mint.Constants
     public const string ProductCreated = "Product created successfully";
     public const string ProductFound = "Product found successfuly";
 
+    // Entry
+    public const string EntryCreated = "Entry created successfully";
+    public const string EntryFound = "Entry found successfully";
+    public const string EntryRetrievedByDateRange = "Entries retrieved by date range successfully";
+
     }
 }
