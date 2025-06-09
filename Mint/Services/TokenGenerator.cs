@@ -17,7 +17,7 @@ public class TokenGenerator
     var tokenDescriptor = new SecurityTokenDescriptor
     {
       Subject = AddClaims(user),
-      // Expires = DateTime.UtcNow.AddHours(1),
+      Expires = DateTime.UtcNow.AddHours(24),
       SigningCredentials = new SigningCredentials(
         new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Secret)),
         SecurityAlgorithms.HmacSha256Signature

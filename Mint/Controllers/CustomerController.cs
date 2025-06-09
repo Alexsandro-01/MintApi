@@ -22,6 +22,25 @@ public class CustomerController : ControllerBase
     _userService = userService;
   }
 
+  [HttpPost]
+  public ActionResult<CustomerDtoResponseSingle> AddCustomer([FromBody] CustomerDtoInsert customer)
+  {
+    var token = HttpContext.User.Identity as ClaimsIdentity;
+    var email = token.FindFirst(ClaimTypes.Email)?.Value;
+
+    var user = _userService.GetUserByEmail(email);
+    int userId = user.Id;
+
+    CustomerDtoResponseSingle newCustomer = _customerService.AddCustomer(userId, customer);
+
+    if (!newCustomer.Success)
+    {
+      return BadRequest(newCustomer);
+    }
+
+    return StatusCode(201, newCustomer);
+  }
+
   [HttpGet]
   public ActionResult<IEnumerable<CustomerDto>> GetAllCustomersByUser()
   {
@@ -42,32 +61,4 @@ public class CustomerController : ControllerBase
       } 
     );
   }
-
-  // [HttpGet("{userId}/customers/{customerId}")]
-  // public ActionResult<CustomerDto> GetCustomerByUserId(int userId, int customerId)
-  // {
-  //   CustomerDto customer = _customerService.GetCustomerByUserId(userId, customerId);
-  //   return Ok(customer);
-  // }
-
-  // [HttpPost("{userId}/customers")]
-  // public ActionResult<CustomerDto> AddCustomer(int userId, [FromBody] CustomerDtoInsert customer)
-  // {
-  //   CustomerDto customerDto = _customerService.AddCustomer(userId, customer);
-  //   return Ok(customerDto);
-  // }
-
-  // [HttpPut("{userId}/customers/{customerId}")]
-  // public ActionResult<CustomerDto> UpdateCustomer(int userId, int customerId, [FromBody] CustomerDtoUpdate customer)
-  // {
-  //   CustomerDto customerDto = _customerService.UpdateCustomer(userId, customerId, customer);
-  //   return Ok(customerDto);
-  // }
-
-  // [HttpDelete("{userId}/customers/{customerId}")]
-  // public ActionResult DeleteCustomer(int userId, int customerId)
-  // {
-  //   _customerService.DeleteCustomer(userId, customerId);
-  //   return NoContent();
-  // }
 }

@@ -1,3 +1,4 @@
+using Mint.Constants;
 using Mint.Models;
 using Mint.Repositories;
 
@@ -14,13 +15,18 @@ public class CustomerService : ICustomerService
     _userRepository = userRepository;
   }
   
-  public Customer AddCustomer(int userId, CustomerDtoInsert customer)
+  public CustomerDtoResponseSingle AddCustomer(int userId, CustomerDtoInsert customer)
   {
     Customer doCustomerExists = _customerRepository.GetCustomerByUserId(userId, customer.CustomerId ?? 0);
 
     if (doCustomerExists != null)
     {
-      return doCustomerExists;
+      return new CustomerDtoResponseSingle
+      {
+        Success = false,
+        Message = ErrorMessages.CustomerAlreadyExists,
+        Customer = null
+      };
     }
 
     User user = _userRepository.GetUserById(userId);
@@ -35,12 +41,17 @@ public class CustomerService : ICustomerService
 
     Customer result = _customerRepository.AddCustomer(newCustomer);
 
-    return result;
-  }
-
-  public void DeleteCustomer(int id)
-  {
-    throw new NotImplementedException();
+    return new CustomerDtoResponseSingle
+    {
+      Success = true,
+      Message = SuccesMessages.CustomerCreated,
+      Customer = new CustomerDto
+      {
+        CustomerId = result.Id,
+        Name = result.Name,
+        Created_at = result.Created_at
+      }
+    };
   }
 
   public IEnumerable<CustomerDto> GetAllCustomersByUser(int userId)
@@ -58,10 +69,5 @@ public class CustomerService : ICustomerService
   {
     Customer customer = _customerRepository.GetCustomerByUserId(userId, customerId);
     return customer;
-  }
-
-  public CustomerDtoResponse UpdateCustomer(Customer customer)
-  {
-    throw new NotImplementedException();
   }
 }

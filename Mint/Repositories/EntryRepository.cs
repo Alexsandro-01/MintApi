@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Mint.Models;
 
 namespace Mint.Repositories;
@@ -21,12 +22,88 @@ public class EntryRepository : IEntryRepository
 
   public IEnumerable<Entry> GetAllEntriesByUserId(int userId)
   {
-    return _context.Entries.Where(e => e.UserId == userId).ToArray();
+    return _context.Entries
+    .Include(e => e.Product)
+    .Include(e => e.Unit)
+    .Include(e => e.Customer)
+    .Where(e => e.UserId == userId)
+    .Select(e => new Entry
+    {
+      Id = e.Id,
+      UserId = e.UserId,
+      ProductId = e.ProductId,
+      UnitId = e.UnitId,
+      CustomerId = e.CustomerId,
+      SaleDate = e.SaleDate,
+      Quantity = e.Quantity,
+      Total = e.Total,
+      Product = new Product
+      {
+        Id = e.Product.Id,
+        UserId = e.Product.UserId,
+        Name = e.Product.Name,
+        Code = e.Product.Code,
+        Active = e.Product.Active,
+      },
+      Unit = new Unit
+      {
+        Id = e.Unit.Id,
+        UserId = e.Unit.UserId,
+        Name = e.Unit.Name,
+        Description = e.Unit.Description
+      },
+      Customer = new Customer
+      {
+        Id = e.Customer.Id,
+        UserId = e.Customer.UserId,
+        Name = e.Customer.Name
+      }
+    })
+    .ToArray();
   }
 
   public Entry GetEntryByUserId(int userId, int entryId)
   {
-    return _context.Entries.FirstOrDefault(e => e.UserId == userId && e.Id == entryId);
+
+    var result = _context.Entries
+    .Include(e => e.Product)
+    .Include(e => e.Unit)
+    .Include(e => e.Customer)
+    .Select(e => new Entry
+    {
+      Id = e.Id,
+      UserId = e.UserId,
+      ProductId = e.ProductId,
+      UnitId = e.UnitId,
+      CustomerId = e.CustomerId,
+      SaleDate = e.SaleDate,
+      Quantity = e.Quantity,
+      Total = e.Total,
+      Product = new Product
+      {
+        Id = e.Product.Id,
+        UserId = e.Product.UserId,
+        Name = e.Product.Name,
+        Code = e.Product.Code,
+        Active = e.Product.Active,
+      },
+      Unit = new Unit
+      {
+        Id = e.Unit.Id,
+        UserId = e.Unit.UserId,
+        Name = e.Unit.Name,
+        Description = e.Unit.Description
+      },
+      Customer = new Customer
+      {
+        Id = e.Customer.Id,
+        UserId = e.Customer.UserId,
+        Name = e.Customer.Name
+      }
+    })
+    .FirstOrDefault(e => e.UserId == userId && e.Id == entryId); ;
+
+    return result;
   }
 
   public IEnumerable<Entry> GetAllEntriesByUserIdAndDateRange(int userId, DateTime startDate, DateTime endDate)

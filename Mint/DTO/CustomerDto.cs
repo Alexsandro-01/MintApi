@@ -31,3 +31,10 @@ public class CustomerDtoResponse
   public string Message { get; set; }
   public CustomerDto[]? Customer { get; set; }
 }
+
+public class CustomerDtoResponseSingle
+{
+  public bool Success { get; set; }
+  public string Message { get; set; }
+  public CustomerDto? Customer { get; set; }
+}
