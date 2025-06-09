@@ -24,7 +24,7 @@ public class ProductService : IProductService
       return new ProductDtoResponse()
       {
         Success = false,
-        Message = ErrorMessages.ProductNotFound,
+        Message = ErrorMessages.ProductAlreadyExists,
       };
 
     User user = _userRepository.GetUserById(userId);
@@ -35,6 +35,7 @@ public class ProductService : IProductService
       Name = product.Name,
       Code = product.Code,
       User = user,
+      Active = true,
       Created_at = DateTime.UtcNow
     };
 
