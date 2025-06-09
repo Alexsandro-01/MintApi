@@ -19,6 +19,7 @@ namespace Mint.Constants
     public const string InvalidProductNameLength = "Product name must have at least 3 characters";
     public const string InvalidProductCodeLength = "Product code must have at least 3 characters";
     public const string ProductNotFound = "Product not found";
+    public const string ProductAlreadyExists = "Product already exists";
 
     // Entry
     public const string QuantityInvalid = "Quantity must be greater than 0";
@@ -29,5 +30,6 @@ namespace Mint.Constants
     // Customer
     public const string CustomerNotFound = "Customer not found";
     public const string InvalidCustomerNameLength = "Customer name must have at least 3 characters";
+    public const string CustomerAlreadyExists = "Customer already exists";
   }
 }

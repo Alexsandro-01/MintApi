@@ -34,6 +34,8 @@ public class EntryController : Controller
     var user = _userService.GetUserByEmail(email);
     int userId = user.Id;
 
+    entry.UserId = userId;
+
     EntryDtoResponse newEntry = _entryService.AddEntry(userId, entry);
 
     if (!newEntry.Success)
